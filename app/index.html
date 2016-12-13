@@ -1,91 +1,132 @@
 <!DOCTYPE html>
 <html ng-app='cityInfo'>
 <head>
-  <title>City Information</title>
-  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/angular_material/1.0.7/angular-material.min.js"></script>
+    <title>City Information</title>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angular_material/1.0.7/angular-material.min.js"></script>
 
-  <script type="text/javascript" src="js/llb.js"></script>
-  <script type="text/javascript" src="js/app/app.module.js"></script>
-  <script type="text/javascript" src="js/app/fullscreen.app.controller.js"></script>
+    <script type="text/javascript" src="js/llb.js"></script>
+    <script type="text/javascript" src="js/app/app.module.js"></script>
+    <script type="text/javascript" src="js/app/fullscreen.app.controller.js"></script>
 
-  <!-- shared -->
-  <script type="text/javascript" src="js/shared/shared.module.js"></script>
-  <script type="text/javascript" src="js/shared/common.directive.js"></script>
-  <script type="text/javascript" src="js/shared/googleMapsApi.provider.js"></script>
+    <!-- shared -->
+    <script type="text/javascript" src="js/shared/shared.module.js"></script>
+    <script type="text/javascript" src="js/shared/common.directive.js"></script>
+    <script type="text/javascript" src="js/shared/loadGoogleLibraries.provider.js"></script>
 
-  <!-- maps -->
-  <script type="text/javascript" src="js/map/map.module.js"></script>
-  <script type="text/javascript" src="js/map/map.controller.js"></script>
-  <script type="text/javascript" src="js/map/map.factory.js"></script>
-  <script type="text/javascript" src="js/map/map.directive.js"></script>
+    <!-- maps -->
+    <script type="text/javascript" src="js/map/map.module.js"></script>
+    <script type="text/javascript" src="js/map/map.controller.js"></script>
+    <script type="text/javascript" src="js/map/map.factory.js"></script>
+    <script type="text/javascript" src="js/map/map.directive.js"></script>
 
-  <!-- points of interest -->
-  <script type="text/javascript" src="js/poi/poi.module.js"></script>
-  <script type="text/javascript" src="js/poi/poi.controller.js"></script>
-  <script type="text/javascript" src="js/poi/poiApi.factory.js"></script>
-  <script type="text/javascript" src="js/poi/poiAutocomplete.service.js"></script>
+    <!-- points of interest -->
+    <script type="text/javascript" src="js/poi/poi.module.js"></script>
+    <script type="text/javascript" src="js/poi/poi.controller.js"></script>
+    <script type="text/javascript" src="js/poi/poiApi.factory.js"></script>
+    <script type="text/javascript" src="js/poi/poiAutocomplete.service.js"></script>
 
-  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+    <!-- news -->
+    <script type="text/javascript" src="js/news/news.module.js"></script>
+    <script type="text/javascript" src="js/news/news.controller.js"></script>
 
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body style='background-color: #0277bd; overflow: hidden;'>
-  <div ng-if='$root.initialized' >
+<div ng-if='$root.initialized'>
     <div flex layout='row' class='md-padding' layout-fill ng-if='!$root.fullscreen'>
-      <div flex layout='column' layout-align='center center'>
-        <span class='md-display-1' style='text-align: center;'>City Information</span>
-      </div>
-    </div>
-
-    <div ng-controller='FullscreenController as fcCtrl' ng-if='::$root.fullscreen || undefined' ng-show='$root.fullscreen'>
-      <apt-map ng-style="fullscreen_app_dimensions">
-        <md-button id='user-center-btn' class='md-fab md-primary md-hue-2' aria-label='Center' ng-if='fcCtrl.selectedPoi == null' ng-click='map.centerToUser()'>
-          <md-icon md-svg-src='img/icons/ic_my_location_black_24px.svg'></md-icon>
-        </md-button>
-      </apt-map>
-
-      <div ng-controller='PoiController as poiCtrl'>
-        <md-autocomplete
-          id='poi-searchbar'
-          class='searchbar'
-          md-input-name='poi-search'
-          md-selected-item='poiCtrl.selectedItem'
-          md-search-text='poiCtrl.searchText'
-          md-items='item in poiCtrl.getQueryPredictions(poiCtrl.searchText)'
-          md-delay='200'
-          md-min-length='2'
-          md-item-text='item.description'
-          md-selected-item-change='poiCtrl.searchForItem(poiCtrl.selectedItem)'
-          md-close-autocomplete-on-enter
-          ng-enter='poiCtrl.searchForPoi(poiCtrl.selectedItem !== null ? poiCtrl.selectedItem : poiCtrl.searchText)'>
-          <md-item-template>
-            {{item.description}}
-          </md-item-template>
-          <md-not-found>
-            No matches found.
-          </md-not-found>
-        </md-autocomplete>
-
-        <md-button id='favorites-btn' class='md-fab md-primary md-hue-2' aria-label='Favorites' ng-if='fcCtrl.selectedPoi == null' ng-click='poiCtrl.showFavorites()'>
-          <md-icon md-svg-src='img/icons/ic_place_black_24px.svg'></md-icon>
-        </md-button>
-      </div>
-
-      <div ng-if='fcCtrl.selectedPoi !== null'>
-        <div id='poi-detail-dialog'>
-          <h3>{{fcCtrl.selectedPoi.name}}</h3>
-            <p>{{ fcCtrl.selectedPoi.formatted_address }}</>
-            <p>{{ fcCtrl.selectedPoi.formatted_phone_number }}</p>
-            <p nf-if='fcCtrl.selectedPoi.website'>
-              <a href='{{fcCtrl.selectedPoi.website}}' target='_blank'>{{fcCtrl.selectedPoi.website}}</a>
-            </p>
+        <div flex layout='column' layout-align='center center'>
+            <span class='md-display-1' style='text-align: center;'>City Information</span>
         </div>
-      </div>
     </div>
-  </div>
+
+    <div ng-controller='FullscreenController as fcCtrl' ng-show='($root.fullscreen && tab ===1)'>
+        <apt-map ng-style="fullscreen_app_dimensions">
+            <md-button id='user-center-btn' class='md-fab md-primary md-hue-2' aria-label='Center'
+                       ng-if='fcCtrl.selectedPoi == null' ng-click='map.centerToUser()'>
+                <md-icon md-svg-src='img/icons/ic_my_location_black_24px.svg'></md-icon>
+            </md-button>
+        </apt-map>
+
+        <div ng-controller='PoiController as poiCtrl'>
+            <md-autocomplete
+                    id='poi-searchbar'
+                    class='searchbar'
+                    md-input-name='poi-search'
+                    md-selected-item='poiCtrl.selectedItem'
+                    md-search-text='poiCtrl.searchText'
+                    md-items='item in poiCtrl.getQueryPredictions(poiCtrl.searchText)'
+                    md-delay='200'
+                    md-min-length='2'
+                    md-item-text='item.description'
+                    md-selected-item-change='poiCtrl.searchForItem(poiCtrl.selectedItem)'
+                    md-close-autocomplete-on-enter
+                    ng-enter='poiCtrl.searchForPoi(poiCtrl.selectedItem !== null ? poiCtrl.selectedItem : poiCtrl.searchText)'>
+                <md-item-template>
+                    {{item.description}}
+                </md-item-template>
+                <md-not-found>
+                    No matches found.
+                </md-not-found>
+            </md-autocomplete>
+
+            <md-button id='favorites-btn' class='md-fab md-primary md-hue-2' aria-label='Favorites'
+                       ng-if='fcCtrl.selectedPoi == null' ng-click='poiCtrl.showFavorites()'>
+                <md-icon md-svg-src='img/icons/ic_place_black_24px.svg'></md-icon>
+            </md-button>
+        </div>
+
+        <div ng-if='fcCtrl.selectedPoi !== null'>
+            <div id='poi-detail-dialog'>
+                <h3>{{fcCtrl.selectedPoi.name}}</h3>
+                <p>{{ fcCtrl.selectedPoi.formatted_address }}</p>
+                <p>{{ fcCtrl.selectedPoi.formatted_phone_number }}</p>
+                <p nf-if='fcCtrl.selectedPoi.website'>
+                    <a href='{{fcCtrl.selectedPoi.website}}' target='_blank'>{{fcCtrl.selectedPoi.website}}</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!--news view-->
+
+    <div ng-show='($root.fullscreen && tab ===2)' ng-controller='NewsController'>
+        <div class="scroll-vertical"style="background-color: white;">
+            <div ng-repeat="news in news">
+                <div>
+                    <div id="newsImage">
+                        <img class="width-full" src="{{news.urlToImage}}">
+                    </div>
+                    <div id="newsText">
+                        <a href="{{news.url}}" target="_blank"><h3>{{news.title}}</h3></a>
+                        <p class="hidden">{{news.description}}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!--places view-->
+
+    <div ng-show='($root.fullscreen && tab ===3)' style="position: absolute">
+        <p> places view </p>
+    </div>
+
+    <!--buttons-->
+
+    <div ng-init='tab=1' ng-show='$root.fullscreen'>
+        <div id="button-container">
+            <md-button id='menu-button' ng-class='{active:tab===1}' ng-click="tab=1">Map</md-button>
+            <md-button id='menu-button' ng-class='{active:tab===2}' ng-click="tab=2">News</md-button>
+            <md-button id='menu-button' ng-class='{active:tab===3}' ng-click="tab=3">Places</md-button>
+        </div>
+    </div>
+</div>
 </body>
 </html>

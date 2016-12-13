@@ -1,74 +1,104 @@
-html, body, iframe
-{
-	color: white;
-	margin: 0;
+html, body, iframe {
+    color: white;
+    margin: 0;
 }
 
-.tile .tag
-{
-	padding: 5px;
+.tile .tag {
+    padding: 5px;
 }
 
-.tile .tags
-{
-	border-left: 1px dashed white;
-	overflow: hidden;
+.tile .tags {
+    border-left: 1px dashed white;
+    overflow: hidden;
 }
 
-.fullscreen .messages
-{
-	overflow: auto;
-	border-top: 1px solid white;
+.fullscreen .messages {
+    overflow: auto;
+    border-top: 1px solid white;
 }
 
-.fullscreen .message
-{
-	padding: 10px;
+.fullscreen .message {
+    padding: 10px;
 }
 
-.fullscreen md-input-container
-{
-	margin: 0px !important;
+.fullscreen md-input-container {
+    margin: 0px !important;
 }
 
-.fullscreen .md-errors-spacer
-{
-	display: none;
+.fullscreen .md-errors-spacer {
+    display: none;
 }
 
 #poi-searchbar {
-  position: absolute;
-  left: 0.6em;
-  right: 0.6em;
-  top: 0.6em;
+    position: absolute;
+    left: 0.6em;
+    right: 0.6em;
+    top: 0.6em;
 }
 
 #poi-searchbar input {
-  background: url(../img/icons/ic_search_black_24px.svg);
-  background-repeat: no-repeat;
-  background-position: 5px 9px;
-  padding: 0px 35px;
+    background: url(../img/icons/ic_search_black_24px.svg);
+    background-repeat: no-repeat;
+    background-position: 5px 9px;
+    padding: 0px 35px;
 }
 
 #user-center-btn {
-  position: absolute;
-  bottom: 20px;
-  right: 0;
+    position: absolute;
+    bottom: 50px;
+    right: 0;
 }
 
 #favorites-btn {
-  position: absolute;
-  bottom: 85px;
-  right: 0;
+    position: absolute;
+    bottom: 115px;
+    right: 0;
 }
 
 #poi-detail-dialog {
-  position: absolute;
-  background-color: white;
-  padding: 0 1em;
-  color: black;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 200px;
+    position: absolute;
+    background-color: white;
+    padding: 0 1em;
+    color: black;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+}
+
+#menu-button {
+    position: relative;
+    height: 100%;
+    width: 32.5%;
+    bottom: 0px;
+    left: 0px;
+    background-color: blue;
+    padding:0px;
+    margin: 0px;
+}
+
+.active {
+    background-color: yellow !important;
+}
+
+.hidden {
+    display: none;
+}
+
+.width-full {
+    width: 100%;
+}
+
+.scroll-vertical {
+    position: absolute;
+    overflow-y: scroll;
+    height: calc(100% - 50px);
+}
+
+#button-container {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 50px;
+    width:100%;
 }
