@@ -38,6 +38,3 @@ jspm_packages
 
 # Remove *.zip from root
 /*.zip
-
-# Ignore the files from webstorm
-.idea/

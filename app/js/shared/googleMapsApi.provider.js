@@ -1,8 +1,8 @@
 (function() {
   'use strict';
-  angular.module('cityInfo.shared').provider('LoadGoogleMapsApi', LoadGoogleMapsApiProvider);
+  angular.module('cityInfo.shared').provider('GoogleMapsApi', GoogleMapsApiProvider);
 
-  function LoadGoogleMapsApiProvider() {
+    function GoogleMapsApiProvider() {
       var myConfig = {
         baseUrl: 'https://maps.googleapis.com/maps/api/js',
         apiKey: null,
@@ -14,20 +14,15 @@
         angular.extend(myConfig, config);
       }
 
-      var loadDeferred = null;
-      this.$get = function($window, $q) {
-        if (loadDeferred !== null) {
-          return loadDeferred.promise;
-        }
-
-        loadDeferred = $q.defer();
+      this.$get = function($window, $document, $q) {
+        var loadDeferred = $q.defer();
 
         function loadGMapsScript() {
-          if (myConfig.baseUrl == null) {
+          if (myConfig.baseUrl === null) {
             console.log('No Google Maps API URL defined, check Angular config!');
             loadDeferred.reject('No Google Maps API URL');
           }
-          else if (myConfig.apiKey == null) {
+          else if (myConfig.apiKey === null) {
             console.log('No Google Maps API Key defined, check Angular config!');
             loadDeferred.reject('No Google Maps API Key');
           }
@@ -51,24 +46,23 @@
           }
         };
 
-        $window.googlemapsapisloaded = function() {
-          loadDeferred.resolve();
-        };
+        function load() {
+          if ($window.googlemapsapisloaded === undefined) {
+            $window.googlemapsapisloaded = function() {
+              loadDeferred.resolve();
+            };
 
-        if (document.readyState !== "complete") {
-          if ($window.attachEvent) {
-            $window.attachEvent('onload', loadGMapsScript);
-          } else {
-            $window.addEventListener('load', loadGMapsScript, false);
+            $document.ready(loadGMapsScript);
           }
-        }
-        else {
-          loadGMapsScript();
+
+          return loadDeferred.promise;
         }
 
-        return loadDeferred.promise;
+        return {
+          load: load
+        };
       };
 
-      this.$get.$inject = ['$window', '$q'];
+      this.$get.$inject = ['$window', '$document', '$q'];
   };
-})();
+  })();

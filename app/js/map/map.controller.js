@@ -78,5 +78,17 @@
       updateUserPosMarker();
     });
     llb_app.request('location');
+
+    //small hack to ensure that map redraws after being (re)hidden
+    //needs to wait a bit for some reason, probably the event is fired
+    //just a bit too early? Even 1ms timeout worked, added a bit more to be safe
+    llb_app.addListener('window_state', forceRedraw);
+    function forceRedraw(data) {
+      if (vm.map !== null) {
+        setTimeout(function(){
+          vm.map.forceRedraw();
+        }, 5);
+      }
+    }
   }
 })();

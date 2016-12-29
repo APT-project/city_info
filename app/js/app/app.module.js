@@ -1,9 +1,9 @@
 (function() {
   'use strict';
 
-  function configureApp($mdThemingProvider, LoadGoogleMapsApiProvider) {
+  function configureApp($mdThemingProvider, GoogleMapsApiProvider) {
     $mdThemingProvider.theme('default').dark();
-    LoadGoogleMapsApiProvider.setConfig({
+    GoogleMapsApiProvider.setConfig({
       apiKey: 'AIzaSyDqNsDFc1Jz7XgdsoKWYnGyNBpZRL6PRh4',
       libraries: ['places']
     });

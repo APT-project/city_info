@@ -2,9 +2,9 @@
   'use strict';
   angular.module('cityInfo.poi').service('PoiAutocompleteService', PoiAutocompleteService);
 
-  PoiAutocompleteService.$inject = ['LoadGoogleMapsApi', '$q'];
+  PoiAutocompleteService.$inject = ['GoogleMapsApi', '$q'];
 
-  function PoiAutocompleteService(LoadGoogleMapsApi, $q) {
+  function PoiAutocompleteService(GoogleMapsApi, $q) {
     var api = null;
 
     this.getPlacePredictions = function(query) {
@@ -16,7 +16,7 @@
     }
 
     function handleQuery(query, queryFuncName) {
-      return LoadGoogleMapsApi.then(
+      return GoogleMapsApi.load().then(
         function() {
           if (api === null) {
             api = new google.maps.places.AutocompleteService();

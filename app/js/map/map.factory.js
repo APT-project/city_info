@@ -2,12 +2,12 @@
   'use strict';
   angular.module('cityInfo.map').factory('MapFactory', GMapFactory);
 
-  GMapFactory.$inject = ['LoadGoogleMapsApi', '$q'];
+  GMapFactory.$inject = ['GoogleMapsApi', '$q'];
 
-  function GMapFactory(LoadGoogleMapsApi, $q, mapDiv, center) {
+  function GMapFactory(GoogleMapsApi, $q, mapDiv, center) {
     return {
       createMap: function(mapDiv, center) {
-        return LoadGoogleMapsApi.then(
+        return GoogleMapsApi.load().then(
           function() {
             if (!(mapDiv instanceof Element)) {
               return $q.reject("MapDiv was not Element");
@@ -33,6 +33,7 @@
               addListener: addListener,
               addListenerOnce: addListenerOnce,
               removeListener: removeListener,
+              forceRedraw: forceRedraw,
               getGoogleMap: getMap
             };
             return mapObj;
@@ -64,11 +65,11 @@
 
             function showMarker(marker) {
               marker.setMap(map);
-            };
+            }
 
             function removeMarker(marker) {
               marker.setMap(null);
-            };
+            }
 
             function addListener(eventName, listener) {
               return map.addListener(eventName, listener);
@@ -80,6 +81,10 @@
 
             function removeListener(listenerHandle) {
                 map.removeListener(listenerHandle);
+            }
+
+            function forceRedraw() {
+              google.maps.event.trigger(map, 'resize');
             }
 
             function getMap() {
