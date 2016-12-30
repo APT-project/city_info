@@ -94,14 +94,14 @@
     <!--news view-->
     <div ng-show='($root.fullscreen && tab ===2)' ng-controller='NewsController as nc'>
       <div class="scroll-vertical"style="background-color: white;">
-        <div ng-repeat="news in nc.news">
+        <div ng-repeat="newsArticle in nc.news">
           <div>
             <div>
-              <img class="width-full" ng-src="{{news.urlToImage}}">
+              <img class="width-full" ng-src="{{newsArticle.urlToImage}}">
             </div>
             <div id="newsText">
-              <a href="{{news.url}}" target="_blank"><h3>{{news.title}}</h3></a>
-              <p class="hidden">{{news.description}}</p>
+              <a href="{{newsArticle.url}}" target="_blank"><h3>{{newsArticle.title}}</h3></a>
+              <p class="hidden">{{newsArticle.description}}</p>
             </div>
           </div>
 
