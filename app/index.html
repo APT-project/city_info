@@ -28,6 +28,10 @@
   <script type="text/javascript" src="js/poi/poiApi.factory.js"></script>
   <script type="text/javascript" src="js/poi/poiAutocomplete.service.js"></script>
 
+  <!-- news -->
+  <script type="text/javascript" src="js/news/news.module.js"></script>
+  <script type="text/javascript" src="js/news/news.controller.js"></script>
+
   <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
   <link href="https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
@@ -41,7 +45,7 @@
       </div>
     </div>
 
-    <div ng-controller='FullscreenController as fcCtrl' ng-if='::$root.fullscreen || undefined' ng-show='$root.fullscreen'>
+    <div ng-controller='FullscreenController as fcCtrl' ng-if='::$root.fullscreen || undefined' ng-show='$root.fullscreen && tab === 1'>
       <apt-map ng-style="fullscreen_app_dimensions">
         <md-button id='user-center-btn' class='md-fab md-primary md-hue-2' aria-label='Center' ng-if='fcCtrl.selectedPoi == null' ng-click='map.centerToUser()'>
           <md-icon md-svg-src='img/icons/ic_my_location_black_24px.svg'></md-icon>
@@ -84,6 +88,38 @@
               <a href='{{fcCtrl.selectedPoi.website}}' target='_blank'>{{fcCtrl.selectedPoi.website}}</a>
             </p>
         </div>
+      </div>
+    </div>
+
+    <!--news view-->
+    <div ng-show='($root.fullscreen && tab ===2)' ng-controller='NewsController as nc'>
+      <div class="scroll-vertical"style="background-color: white;">
+        <div ng-repeat="news in nc.news">
+          <div>
+            <div>
+              <img class="width-full" ng-src="{{news.urlToImage}}">
+            </div>
+            <div id="newsText">
+              <a href="{{news.url}}" target="_blank"><h3>{{news.title}}</h3></a>
+              <p class="hidden">{{news.description}}</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!--places view-->
+    <div ng-show='($root.fullscreen && tab ===3)' style="position: absolute">
+      <p> places view </p>
+    </div>
+
+    <!--buttons-->
+    <div ng-init='tab=1' ng-show='$root.fullscreen'>
+      <div id="button-container">
+        <md-button id='menu-button' ng-class='{active:tab===1}' ng-click="tab=1">Map</md-button>
+        <md-button id='menu-button' ng-class='{active:tab===2}' ng-click="tab=2">News</md-button>
+        <md-button id='menu-button' ng-class='{active:tab===3}' ng-click="tab=3">Places</md-button>
       </div>
     </div>
   </div>
