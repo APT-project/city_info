@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <div ng-controller='FullscreenController as fcCtrl' ng-if='::$root.fullscreen || undefined' ng-show='$root.fullscreen && tab === 1'>
+    <div ng-controller='FullscreenController as fcCtrl' ng-if='::$root.fullscreen || undefined' ng-show='$root.fullscreen && $root.tab === 1'>
       <apt-map id="mapview-map">
         <md-button id='user-center-btn' class='md-fab md-primary md-hue-2' aria-label='Center' ng-if='fcCtrl.selectedPoi == null' ng-click='map.centerToUser()'>
           <md-icon md-svg-src='img/icons/ic_my_location_black_24px.svg'></md-icon>
@@ -92,7 +92,7 @@
     </div>
 
     <!--news view-->
-    <div ng-show='($root.fullscreen && tab ===2)' ng-controller='NewsController as nc'>
+    <div ng-show='($root.fullscreen && $root.tab === 2)' ng-controller='NewsController as nc'>
       <div class="scroll-vertical"style="background-color: white;">
         <div ng-repeat="newsArticle in nc.news">
           <div>
@@ -110,16 +110,16 @@
     </div>
 
     <!--places view-->
-    <div ng-show='($root.fullscreen && tab ===3)' style="position: absolute">
+    <div ng-show='($root.fullscreen && $root.tab === 3)' style="position: absolute">
       <p> places view </p>
     </div>
 
     <!--buttons-->
-    <div ng-init='tab=1' ng-show='$root.fullscreen'>
+    <div ng-show='$root.fullscreen'>
       <div id="button-container">
-        <md-button id='menu-button' ng-class='{active:tab===1}' ng-click="tab=1">Map</md-button>
-        <md-button id='menu-button' ng-class='{active:tab===2}' ng-click="tab=2">News</md-button>
-        <md-button id='menu-button' ng-class='{active:tab===3}' ng-click="tab=3">Places</md-button>
+        <md-button id='menu-button' ng-class='{active: $root.tab === 1}' ng-click="$root.tab = 1">Map</md-button>
+        <md-button id='menu-button' ng-class='{active: $root.tab === 2}' ng-click="$root.tab = 2">News</md-button>
+        <md-button id='menu-button' ng-class='{active: $root.tab === 3}' ng-click="$root.tab = 3">Places</md-button>
       </div>
     </div>
   </div>
