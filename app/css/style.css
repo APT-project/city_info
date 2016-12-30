@@ -36,6 +36,12 @@ html, body, iframe
   display: none;
 }
 
+#mapview-map {
+  width: 100%;
+  height: calc(100% - 50px);
+  position: absolute;
+}
+
 #poi-searchbar {
   position: absolute;
   left: 0.6em;
@@ -58,7 +64,7 @@ html, body, iframe
 
 #favorites-btn {
   position: absolute;
-  bottom: 85px;
+  bottom: 135px;
   right: 0;
 }
 
