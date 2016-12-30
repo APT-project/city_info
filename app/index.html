@@ -99,7 +99,7 @@
             <div>
               <img class="width-full" ng-src="{{newsArticle.urlToImage}}">
             </div>
-            <div id="newsText">
+            <div>
               <a href="{{newsArticle.url}}" target="_blank"><h3>{{newsArticle.title}}</h3></a>
               <p class="hidden">{{newsArticle.description}}</p>
             </div>
@@ -116,10 +116,10 @@
 
     <!--buttons-->
     <div ng-show='$root.fullscreen'>
-      <div id="button-container">
-        <md-button id='menu-button' ng-class='{active: $root.tab === 1}' ng-click="$root.tab = 1">Map</md-button>
-        <md-button id='menu-button' ng-class='{active: $root.tab === 2}' ng-click="$root.tab = 2">News</md-button>
-        <md-button id='menu-button' ng-class='{active: $root.tab === 3}' ng-click="$root.tab = 3">Places</md-button>
+      <div id="tab-button-container">
+        <md-button class='tab-button' ng-class='{active: $root.tab === 1}' ng-click="$root.tab = 1">Map</md-button>
+        <md-button class='tab-button' ng-class='{active: $root.tab === 2}' ng-click="$root.tab = 2">News</md-button>
+        <md-button class='tab-button' ng-class='{active: $root.tab === 3}' ng-click="$root.tab = 3">Places</md-button>
       </div>
     </div>
   </div>

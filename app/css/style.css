@@ -79,8 +79,7 @@ html, body, iframe
   height: 200px;
 }
 
-
-#menu-button {
+.tab-button {
   position: relative;
   height: 100%;
   width: 32.5%;
@@ -91,8 +90,8 @@ html, body, iframe
   margin: 0px;
 }
 
-.active {
-  background-color: yellow !important;
+.tab-button.active {
+  background-color: yellow;
 }
 
 .hidden {
@@ -109,7 +108,7 @@ html, body, iframe
   height: calc(100% - 50px);
 }
 
-#button-container {
+#tab-button-container {
   position: absolute;
   bottom: 0px;
   left: 0px;
